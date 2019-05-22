@@ -1,0 +1,11 @@
+<resources>
+    <string name="habitatUrl">https://habitat-cell-io.herokuapp.com</string>
+    <string name="chatUrl">https://chat-cell-io.herokuapp.com</string>
+    <integer name="areaSize">5</integer>
+
+    <string name="defaultCellAddress">{
+            "regionIndex": 6,
+            "x": 18,
+            "y": 18
+        }</string>
+</resources>
