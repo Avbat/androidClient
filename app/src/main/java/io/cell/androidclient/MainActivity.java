@@ -1,33 +1,22 @@
 package io.cell.androidclient;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.util.Set;
-import java.util.TreeSet;
-
-import io.cell.androidclient.api.ApiFactory;
-import io.cell.androidclient.api.habitat.HabitatApi;
-import io.cell.androidclient.api.habitat.HabitatResponseHandlerFactory;
 import io.cell.androidclient.model.Address;
+import io.cell.androidclient.model.Area;
 import io.cell.androidclient.model.Cell;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.cell.androidclient.utils.tasks.LoadAreaTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private HabitatApi habitatApi;
-    private HabitatResponseHandlerFactory handlerFactory;
-    private Integer areaSize;
+    private Area area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +27,43 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        habitatApi = new ApiFactory(this).getHabitatApi();
-        handlerFactory = new HabitatResponseHandlerFactory(this);
-        areaSize = getResources().getInteger(R.integer.areaSize);
+        try {
+            area = new LoadAreaTask(this).execute().get();
+        } catch (Exception e) {
+            Log.e("Habitat", e.getMessage(), e);
+        }
+        fillActivityArea();
     }
 
     public void showInfo(View view) {
-        String currentAddressJson = getResources().getString(R.string.defaultCellAddress);
-        Gson gson = new Gson();
-        Address currentAddress = gson.fromJson(currentAddressJson, Address.class);
-        habitatApi.getArea(currentAddress.getX(), currentAddress.getY(), areaSize).enqueue(handlerFactory.getAreaResponseHandler());
+        Toast.makeText(getApplicationContext(),
+                Integer.toString(area.getConvas().size()),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    public void fillActivityArea() {
+        if (area.getConvas().isEmpty()) {
+            return;
+        }
+        Integer maxX = area.getCurrentAddress().getX() + (area.getAreaSize() / 2);
+        Integer minX = area.getCurrentAddress().getX() - (area.getAreaSize() / 2);
+        Cell firstCell = area.getConvas().iterator().next();
+        Integer offsetX = firstCell.getAddress().getX();
+        Integer offsetY = firstCell.getAddress().getY() - 1;
+
+        for (Cell cell : area.getConvas()) {
+            Address address = cell.getAddress();
+            if (address.getX() > maxX || address.getX() < minX) {
+                continue;
+            }
+            String viewName = "cell_" + (address.getY() - offsetY) + "_" + (address.getX() - offsetX);
+            Integer viewId = getResources().getIdentifier(viewName, "id", getPackageName());
+            View cellView = findViewById(viewId);
+            if (cellView == null) {
+                continue;
+            }
+            Bitmap cellImage = area.getImageCache().get(cell.getBackgroundImage());
+            cellView.setBackground(new BitmapDrawable(getResources(), cellImage));
+        }
     }
 }
