@@ -1,181 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#967346"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#967346"
+        android:padding="3dp">
 
-        <LinearLayout
-            android:id="@+id/ll1"
+        <TableRow
+            android:id="@+id/row_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
 
-            <View
-                android:id="@+id/cell_1_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#DDD"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingEnd="1px">
 
-            <View
-                android:id="@+id/cell_1_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#DDD"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#DAA"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_1_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#DAA"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#DBC"
-                android:onClick="showInfo" />
-        </LinearLayout>
+                android:paddingStart="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-        <LinearLayout
-            android:id="@+id/ll2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <View
+                    android:id="@+id/cell_1_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#DBC"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
 
-            <View
-                android:id="@+id/cell_2_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#ABC"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_2_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#ABC"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#ADB"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_2_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#ADB"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#AFC"
-                android:onClick="showInfo" />
-        </LinearLayout>
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-        <LinearLayout
-            android:id="@+id/ll3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <View
+                    android:id="@+id/cell_2_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#AFC"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
 
-            <View
-                android:id="@+id/cell_3_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#9CD"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_3_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_3_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#9CD"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#9FF"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_3_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_3_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#9FF"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#A89"
-                android:onClick="showInfo" />
-        </LinearLayout>
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-        <LinearLayout
-            android:id="@+id/ll4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <View
+                    android:id="@+id/cell_3_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#A89"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
 
-            <View
-                android:id="@+id/cell_4_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#F99"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_4_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_4_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F99"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#E64"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-            <View
-                android:id="@+id/cell_4_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_4_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#E64"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#E82"
-                android:onClick="showInfo" />
-        </LinearLayout>
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
-        <LinearLayout
-            android:id="@+id/ll5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+                <View
+                    android:id="@+id/cell_4_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#E82"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:visibility="visible">
 
-            <View
-                android:id="@+id/cell_5_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#EAA"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px">
 
-            <View
-                android:id="@+id/cell_5_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_5_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#EAA"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#3AA"
-                android:onClick="showInfo" />
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px">
 
-            <View
-                android:id="@+id/cell_5_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <View
+                    android:id="@+id/cell_5_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#3AA"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#E74"
-                android:onClick="showInfo" />
-        </LinearLayout>
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px">
 
-    </LinearLayout>
+                <View
+                    android:id="@+id/cell_5_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#E74"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+        </TableRow>
+
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
