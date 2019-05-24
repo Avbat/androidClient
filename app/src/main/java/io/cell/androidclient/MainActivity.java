@@ -16,23 +16,20 @@ import io.cell.androidclient.utils.tasks.LoadAreaTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Area area;
+    private Area area = Area.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Hide UI first
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-        try {
-            area = new LoadAreaTask(this).execute().get();
-        } catch (Exception e) {
-            Log.e("Habitat", e.getMessage(), e);
+        loadArea();
+        if (area.isLoaded()) {
+            fillActivityArea();
         }
-        fillActivityArea();
     }
 
     public void showInfo(View view) {
@@ -41,7 +38,21 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void fillActivityArea() {
+    private void loadArea() {
+        try {
+            LoadAreaTask loadAreaTask = new LoadAreaTask(this);
+            loadAreaTask.execute();
+            if (loadAreaTask.isErrors()) {
+                Toast.makeText(this,
+                        loadAreaTask.getErrorMessage(),
+                        Toast.LENGTH_SHORT);
+            }
+        } catch (Exception e) {
+            Log.e("Habitat", e.getMessage(), e);
+        }
+    }
+
+    private void fillActivityArea() {
         if (area.getConvas().isEmpty()) {
             return;
         }
@@ -65,5 +76,14 @@ public class MainActivity extends AppCompatActivity {
             Bitmap cellImage = area.getImageCache().get(cell.getBackgroundImage());
             cellView.setBackground(new BitmapDrawable(getResources(), cellImage));
         }
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public MainActivity setArea(Area area) {
+        this.area = area;
+        return this;
     }
 }
