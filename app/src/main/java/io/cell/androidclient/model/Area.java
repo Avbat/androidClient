@@ -8,10 +8,20 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Area {
+    private static final Area ourInstance = new Area();
+
     private Integer areaSize;
     private Set<Cell> convas = new TreeSet<>();
     private java.util.Map<String, Bitmap> imageCache = new HashMap<>();
     private Address currentAddress;
+    private boolean loaded = false;
+
+    public static Area getInstance() {
+        return ourInstance;
+    }
+
+    private Area() {
+    }
 
     public Integer getAreaSize() {
         return areaSize;
@@ -46,6 +56,15 @@ public class Area {
 
     public Area setCurrentAddress(Address currentAddress) {
         this.currentAddress = currentAddress;
+        return this;
+    }
+
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public Area setLoaded(boolean loaded) {
+        this.loaded = loaded;
         return this;
     }
 }

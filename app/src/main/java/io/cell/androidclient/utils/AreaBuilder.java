@@ -22,17 +22,19 @@ public class AreaBuilder {
     private Set<Cell> canvas = new TreeSet<>();
     private java.util.Map<String, Bitmap> imageCache = new HashMap<>();
     private Address currentAddress;
+    private boolean loaded;
 
     public AreaBuilder(Context context) {
         this.context = context;
     }
 
     public Area build() {
-        return new Area()
+        return Area.getInstance()
                 .setAreaSize(areaSize)
                 .setCurrentAddress(currentAddress)
                 .setConvas(canvas)
-                .setImageCache(imageCache);
+                .setImageCache(imageCache)
+                .setLoaded(loaded);
     }
 
     public Context getContext() {
@@ -91,6 +93,15 @@ public class AreaBuilder {
 
     public Integer getAreaSize() {
         return context.getResources().getInteger(R.integer.areaSize);
+    }
+
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public AreaBuilder setLoaded(boolean loaded) {
+        this.loaded = loaded;
+        return this;
     }
 }
 

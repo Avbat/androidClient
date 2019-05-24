@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
+import io.cell.androidclient.MainActivity;
 import io.cell.androidclient.api.ApiFactory;
 import io.cell.androidclient.api.habitat.HabitatApi;
 import io.cell.androidclient.model.Address;
@@ -22,16 +23,23 @@ import io.cell.androidclient.utils.AreaBuilder;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
+import static io.cell.androidclient.utils.tasks.Errors.LOAD_CELL_REQUEST_FAILED;
+import static io.cell.androidclient.utils.tasks.Errors.LOAD_IMAGE_REQUEST_FAILED;
+import static io.cell.androidclient.utils.tasks.Errors.LOAD_SERVER_UNAVALABLE;
+
 public class LoadAreaTask extends AsyncTask<Void, Integer, Area> {
 
     private Context context;
     private AreaBuilder builder;
     private HabitatApi habitatApi;
-
+    private Area area;
+    private boolean errors = false;
+    private String errorMessage = "";
 
     public LoadAreaTask(Context context) {
         super();
         this.context = context;
+        this.area = (((MainActivity) context).getArea());
         builder = new AreaBuilder(context);
         habitatApi = new ApiFactory(context).getHabitatApi();
     }
@@ -39,6 +47,9 @@ public class LoadAreaTask extends AsyncTask<Void, Integer, Area> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        if (area != null && area.isLoaded()) {
+            cancel(true);
+        }
     }
 
     @Override
@@ -72,6 +83,7 @@ public class LoadAreaTask extends AsyncTask<Void, Integer, Area> {
         return builder
                 .setCanvas(cells)
                 .setImageCache(images)
+                .setLoaded(!errors)
                 .build();
     }
 
@@ -84,8 +96,12 @@ public class LoadAreaTask extends AsyncTask<Void, Integer, Area> {
                                     .execute()
                                     .body()));
         } catch (IOException e) {
+            errors = true;
+            errorMessage = LOAD_SERVER_UNAVALABLE.getDescription();
             Log.e("Habitat", "The request failed.", e);
         } catch (NullPointerException e) {
+            errors = true;
+            errorMessage = LOAD_CELL_REQUEST_FAILED.getDescription();
             Log.e("Habitat", "The cell area could not be loaded.", e);
         }
         return cells;
@@ -98,16 +114,37 @@ public class LoadAreaTask extends AsyncTask<Void, Integer, Area> {
             try {
                 response = habitatApi.getImage(cell.getBackgroundImage()).execute();
             } catch (IOException e) {
+                errors = true;
+                errorMessage = LOAD_SERVER_UNAVALABLE.getDescription();
                 Log.e("Habitat", "The request failed.", e);
             }
             if (response!= null && response.isSuccessful()) {
                 Bitmap backgroundImage = BitmapFactory.decodeStream(response.body().byteStream());
                 images.put(cell.getBackgroundImage(), backgroundImage);
             } else {
+                errors = true;
+                errorMessage = LOAD_IMAGE_REQUEST_FAILED.getDescription();
                 Log.e("Habitat", response.message());
             }
         }
         return images;
     }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public LoadAreaTask setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
+
+    public boolean isErrors() {
+        return errors;
+    }
+
+    private LoadAreaTask setErrors(boolean errors) {
+        this.errors = errors;
+        return this;
+    }
 }
