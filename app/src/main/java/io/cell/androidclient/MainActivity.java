@@ -1,5 +1,6 @@
 package io.cell.androidclient;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -53,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillActivityArea() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            fillVertcalActivityArea();
+        }
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            fillHorizontalActivityArea();
+        }
+    }
+
+    private void fillVertcalActivityArea() {
         if (area.getConvas().isEmpty()) {
             return;
         }
@@ -67,7 +77,33 @@ public class MainActivity extends AppCompatActivity {
             if (address.getX() > maxX || address.getX() < minX) {
                 continue;
             }
-            String viewName = "cell_" + (address.getY() - offsetY) + "_" + (address.getX() - offsetX);
+            String viewName = "cell_v_" + (address.getY() - offsetY) + "_" + (address.getX() - offsetX);
+            Integer viewId = getResources().getIdentifier(viewName, "id", getPackageName());
+            View cellView = findViewById(viewId);
+            if (cellView == null) {
+                continue;
+            }
+            Bitmap cellImage = area.getImageCache().get(cell.getBackgroundImage());
+            cellView.setBackground(new BitmapDrawable(getResources(), cellImage));
+        }
+    }
+
+    private void fillHorizontalActivityArea() {
+        if (area.getConvas().isEmpty()) {
+            return;
+        }
+        Integer maxY = area.getCurrentAddress().getY() + (area.getAreaSize() / 2);
+        Integer minY = area.getCurrentAddress().getY() - (area.getAreaSize() / 2);
+        Cell firstCell = area.getConvas().iterator().next();
+        Integer offsetX = firstCell.getAddress().getX() - 1;
+        Integer offsetY = firstCell.getAddress().getY();
+
+        for (Cell cell : area.getConvas()) {
+            Address address = cell.getAddress();
+            if (address.getY() > maxY || address.getY() < minY) {
+                continue;
+            }
+            String viewName = "cell_h_" + (address.getY() - offsetY) + "_" + (address.getX() - offsetX);
             Integer viewId = getResources().getIdentifier(viewName, "id", getPackageName());
             View cellView = findViewById(viewId);
             if (cellView == null) {

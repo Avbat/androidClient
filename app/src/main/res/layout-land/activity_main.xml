@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#967346"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -29,7 +28,26 @@
                 android:paddingEnd="1px">
 
                 <View
-                    android:id="@+id/cell_v_1_1"
+                    android:id="@+id/cell_h_1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#A89"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingStart="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
+
+                <View
+                    android:id="@+id/cell_h_1_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -47,7 +65,7 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_1_2"
+                    android:id="@+id/cell_h_1_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -61,11 +79,29 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingStart="1px"
-                android:paddingEnd="1px"
-                android:paddingBottom="1px">
+                android:paddingTop="1px"
+                android:paddingEnd="1px">
 
                 <View
-                    android:id="@+id/cell_v_1_3"
+                    android:id="@+id/cell_h_1_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#A89"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px">
+
+                <View
+                    android:id="@+id/cell_h_1_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,7 +131,7 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_2_1"
+                    android:id="@+id/cell_h_2_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -114,7 +150,27 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_2_2"
+                    android:id="@+id/cell_h_2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#A89"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
+
+                <View
+                    android:id="@+id/cell_h_2_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -133,7 +189,25 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_2_3"
+                    android:id="@+id/cell_h_2_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#A89"
+                    android:onClick="showInfo"
+                    android:saveEnabled="false" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingStart="1px"
+                android:paddingTop="1px"
+                android:paddingEnd="1px">
+
+                <View
+                    android:id="@+id/cell_h_2_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -163,7 +237,7 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_3_1"
+                    android:id="@+id/cell_h_3_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -182,56 +256,7 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_3_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#A89"
-                    android:onClick="showInfo"
-                    android:saveEnabled="false" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingStart="1px"
-                android:paddingTop="1px"
-                android:paddingEnd="1px"
-                android:paddingBottom="1px">
-
-                <View
-                    android:id="@+id/cell_v_3_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#A89"
-                    android:onClick="showInfo"
-                    android:saveEnabled="false" />
-            </FrameLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            tools:visibility="visible">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingStart="1px"
-                android:paddingTop="1px"
-                android:paddingEnd="1px"
-                android:paddingBottom="1px">
-
-                <View
-                    android:id="@+id/cell_v_4_1"
+                    android:id="@+id/cell_h_3_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -251,7 +276,7 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_4_2"
+                    android:id="@+id/cell_h_3_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -270,36 +295,7 @@
                 android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_4_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#A89"
-                    android:onClick="showInfo"
-                    android:saveEnabled="false" />
-            </FrameLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            tools:visibility="visible">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingStart="1px"
-                android:paddingTop="1px"
-                android:paddingEnd="1px">
-
-                <View
-                    android:id="@+id/cell_v_5_1"
+                    android:id="@+id/cell_h_3_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -314,28 +310,11 @@
                 android:layout_weight="1"
                 android:paddingStart="1px"
                 android:paddingTop="1px"
-                android:paddingEnd="1px">
+                android:paddingEnd="1px"
+                android:paddingBottom="1px">
 
                 <View
-                    android:id="@+id/cell_v_5_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#A89"
-                    android:onClick="showInfo"
-                    android:saveEnabled="false" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingStart="1px"
-                android:paddingTop="1px"
-                android:paddingEnd="1px">
-
-                <View
-                    android:id="@+id/cell_v_5_3"
+                    android:id="@+id/cell_h_3_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -347,5 +326,4 @@
         </TableRow>
 
     </TableLayout>
-
 </android.support.constraint.ConstraintLayout>
