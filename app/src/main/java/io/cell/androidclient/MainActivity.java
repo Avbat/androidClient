@@ -6,14 +6,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import io.cell.androidclient.model.Address;
 import io.cell.androidclient.model.Area;
 import io.cell.androidclient.model.Cell;
-import io.cell.androidclient.utils.tasks.LoadAreaTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        loadArea();
         if (area.isLoaded()) {
             fillActivityArea();
         }
@@ -37,20 +34,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),
                 Integer.toString(area.getConvas().size()),
                 Toast.LENGTH_SHORT).show();
-    }
-
-    private void loadArea() {
-        try {
-            LoadAreaTask loadAreaTask = new LoadAreaTask(this);
-            loadAreaTask.execute();
-            if (loadAreaTask.isErrors()) {
-                Toast.makeText(this,
-                        loadAreaTask.getErrorMessage(),
-                        Toast.LENGTH_SHORT);
-            }
-        } catch (Exception e) {
-            Log.e("Habitat", e.getMessage(), e);
-        }
     }
 
     private void fillActivityArea() {
