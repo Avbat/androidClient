@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">cellClient</string>
+    <string name="load_caption_1">L</string>
+    <string name="load_caption_2">AD…</string>
+    <string name="splash_screen_description">splash screen</string>
+    <string name="connectCaption">Connect</string>
 </resources>
