@@ -2,7 +2,7 @@ package io.cell.androidclient.model;
 
 import java.util.UUID;
 
-public class Cell implements Comparable<Cell>{
+public class Cell implements Comparable<Cell> {
   private UUID cellId;
   private Address address;
   private Integer movementRate;

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -20,6 +21,8 @@ import io.cell.androidclient.model.Address;
 import io.cell.androidclient.model.Area;
 import io.cell.androidclient.model.Cell;
 import io.cell.androidclient.utils.AreaBuilder;
+import io.cell.androidclient.utils.cache.ImageCache;
+import io.cell.androidclient.utils.cache.ImageCacheSingleton;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
@@ -33,14 +36,30 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
     private AreaBuilder builder;
     private HabitatApi habitatApi;
     private Area area;
-    private boolean errors = false;
-    private String errorMessage = "";
 
-    public AreaLoader(Context context) {
+    public Address getTargetAddress() {
+        return targetAddress;
+    }
+
+    public AreaLoader setTargetAddress(Address targetAddress) {
+        this.targetAddress = targetAddress;
+        return this;
+    }
+
+    private Address targetAddress;
+    private ImageCache imageCache;
+    private boolean errors;
+    private String errorMessage;
+
+    public AreaLoader(Context context, @Nullable Address targetAddress) {
         super(context);
-        this.area = Area.getInstance();
+        this.area = new Area();
+        imageCache = ImageCacheSingleton.getInstance();
         builder = new AreaBuilder(context);
+        this.targetAddress = targetAddress == null ? builder.getDefaultAddress() : targetAddress;
         habitatApi = new ApiFactory(context).getHabitatApi();
+        errors = false;
+        errorMessage = "";
     }
 
     @Nullable
@@ -49,26 +68,31 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
         errors = false;
         errorMessage = "";
         builder.setDefaultAreaSize()
-                .setDefaultAddress();
-        Address currentAddress = builder.getCurrentAddress();
-        Set<Cell> cells = loadAreaCells(currentAddress.getX(), currentAddress.getY(), builder.getAreaSize());
-        Map<String, Bitmap> images = loadImages(cells);
-        return builder
+                .setCurrentAddress(targetAddress);
+        Set<Cell> cells = loadAreaCells(targetAddress.getX(), targetAddress.getY(), builder.getAreaSize());
+        Set<Cell> missingImageCells = getMissingImageCells(cells);
+        imageCache.getCache().putAll(loadImages(missingImageCells));
+        area = builder
                 .setCanvas(cells)
-                .setImageCache(images)
                 .setLoaded(!errors)
                 .build();
+        return area;
+    }
+
+    private Set<Cell> getMissingImageCells(Set<Cell> cells) {
+        Set<Cell> missingImageCells = new HashSet<>();
+        for (Cell cell : cells) {
+            if (imageCache.getCache().containsKey(cell.getAddress())) {
+                continue;
+            }
+            missingImageCells.add(cell);
+        }
+        return missingImageCells;
     }
 
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        if (area != null
-                && area.isLoaded()
-                && !area.getConvas().isEmpty()
-                && area.getImageCache().size() >= area.getConvas().size()) {
-            cancelLoad();
-        }
         forceLoad();
     }
 
@@ -93,7 +117,7 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
             Response<Set<Cell>> response = habitatApi.getArea(x, y, areaSize).execute();
             if (response.isSuccessful()) {
                 cells.addAll(Objects.requireNonNull(response.body()));
-            }else {
+            } else {
                 errors = true;
                 errorMessage = LOAD_SERVER_UNAVALABLE.getDescription();
                 Log.e(TAG, response.message());
@@ -126,8 +150,8 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
         return images;
     }
 
-    private Bitmap loadImage(Cell cell) throws IOException{
-        Response<ResponseBody> response =  habitatApi.getImage(cell.getBackgroundImage()).execute();
+    private Bitmap loadImage(Cell cell) throws IOException {
+        Response<ResponseBody> response = habitatApi.getImage(cell.getBackgroundImage()).execute();
         if (response.isSuccessful()) {
             return BitmapFactory.decodeStream(Objects.requireNonNull(response.body()).byteStream());
         } else {
@@ -156,4 +180,12 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
         return this;
     }
 
+    public Area getArea() {
+        return area;
+    }
+
+    public AreaLoader setArea(Area area) {
+        this.area = area;
+        return this;
+    }
 }
