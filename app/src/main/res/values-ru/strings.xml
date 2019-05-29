@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">cellClient</string>
+    <string name="crossCaption">Переход</string>
+    <string name="doCrossCaption">Перейти</string>
+    <string name="cellCaption">Адрес</string>
+    <string name="regionCaption">Регион</string>
+    <string name="secondShortCaption">сек</string>
+    <string name="infoItemTitle">Инфо</string>
+    <string name="process_number_format">Осталось %d сек…</string>
+</resources>

@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#967346"
-    tools:context=".MainActivity">
+    tools:context=".AreaActivity">
 
     <TableLayout
+        android:id="@+id/mainTable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#967346"
@@ -28,13 +29,13 @@
                 android:paddingStart="1px"
                 android:paddingEnd="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_1_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -46,13 +47,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_1_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -64,13 +65,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_1_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -94,13 +95,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_2_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -113,13 +114,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_2_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -132,13 +133,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_2_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -162,13 +163,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_3_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -181,13 +182,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_3_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -200,13 +201,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_3_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -230,13 +231,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_4_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
 
             </FrameLayout>
@@ -250,13 +251,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_4_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -269,13 +270,13 @@
                 android:paddingEnd="1px"
                 android:paddingBottom="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_4_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -298,13 +299,13 @@
                 android:paddingTop="1px"
                 android:paddingEnd="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_5_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -316,13 +317,13 @@
                 android:paddingTop="1px"
                 android:paddingEnd="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_5_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 
@@ -334,13 +335,13 @@
                 android:paddingTop="1px"
                 android:paddingEnd="1px">
 
-                <View
+                <io.cell.androidclient.custom.views.CellView
                     android:id="@+id/cell_v_5_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#A89"
-                    android:onClick="showInfo"
+                    android:onClick="showMenu"
                     android:saveEnabled="false" />
             </FrameLayout>
 

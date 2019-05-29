@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
 import io.cell.androidclient.R;
 import io.cell.androidclient.model.Address;
@@ -19,7 +19,7 @@ public class AreaBuilder {
     private Context context;
 
     private Integer areaSize;
-    private Set<Cell> canvas = new TreeSet<>();
+    private Map<Address, Cell> canvas = new TreeMap<>();
     private java.util.Map<String, Bitmap> imageCache = new HashMap<>();
     private Address currentAddress;
     private boolean loaded;
@@ -29,11 +29,10 @@ public class AreaBuilder {
     }
 
     public Area build() {
-        return Area.getInstance()
+        return new Area()
                 .setAreaSize(areaSize)
                 .setCurrentAddress(currentAddress)
-                .setConvas(canvas)
-                .setImageCache(imageCache)
+                .setCanvas(canvas)
                 .setLoaded(loaded);
     }
 
@@ -56,21 +55,20 @@ public class AreaBuilder {
         return this;
     }
 
-    public Set<Cell> getCanvas() {
+    public Map<Address, Cell> getCanvas() {
         return canvas;
     }
 
     public AreaBuilder setCanvas(Set<Cell> canvas) {
-        this.canvas = canvas;
+        this.canvas.clear();
+        for (Cell cell : canvas) {
+            this.canvas.put(cell.getAddress(), cell);
+        }
         return this;
     }
 
-    public Map<String, Bitmap> getImageCache() {
-        return imageCache;
-    }
-
-    public AreaBuilder setImageCache(Map<String, Bitmap> imageCache) {
-        this.imageCache = imageCache;
+    public AreaBuilder setCanvas(Map<Address, Cell> canvas) {
+        this.canvas = canvas;
         return this;
     }
 
@@ -84,11 +82,14 @@ public class AreaBuilder {
     }
 
     public AreaBuilder setDefaultAddress() {
+        this.currentAddress = getDefaultAddress();
+        return this;
+    }
+
+    public Address getDefaultAddress() {
         String defaultAddressJson = context.getResources().getString(R.string.defaultCellAddress);
         Gson gson = new Gson();
-        Address defaultAddress = gson.fromJson(defaultAddressJson, Address.class);
-        this.currentAddress = defaultAddress;
-        return this;
+        return gson.fromJson(defaultAddressJson, Address.class);
     }
 
     public Integer getAreaSize() {

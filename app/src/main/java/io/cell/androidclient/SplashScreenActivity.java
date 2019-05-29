@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import io.cell.androidclient.model.Area;
 import io.cell.androidclient.utils.tasks.AreaLoader;
 
@@ -23,20 +26,24 @@ import static android.view.View.VISIBLE;
 public class SplashScreenActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Area> {
 
-    private static final int LOADER_ID = 1;
+    private static final int AREA_LOADER_ID = 1;
     private Loader<Area> areaLoader;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        gson = new GsonBuilder()
+                .enableComplexMapKeySerialization()
+                .create();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
         findViewById(R.id.loadCaptionFrame).setVisibility(VISIBLE);
         findViewById(R.id.connectButton).setVisibility(INVISIBLE);
-        areaLoader = LoaderManager.getInstance(this).initLoader(LOADER_ID, new Bundle(), this);
+        areaLoader = LoaderManager.getInstance(this).initLoader(AREA_LOADER_ID, new Bundle(), this);
     }
 
     public void connectOnClick(View view) {
@@ -48,15 +55,15 @@ public class SplashScreenActivity extends AppCompatActivity implements
     @NonNull
     @Override
     public Loader<Area> onCreateLoader(int id, @Nullable Bundle bundle) {
-        if (id == LOADER_ID) {
-            return new AreaLoader(this);
+        if (id == AREA_LOADER_ID) {
+            return new AreaLoader(this, null);
         }
         return this.areaLoader;
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Area> loader, Area s) {
-        if (loader.getId() == LOADER_ID) {
+    public void onLoadFinished(@NonNull Loader<Area> loader, Area area) {
+        if (loader.getId() == AREA_LOADER_ID) {
             AreaLoader areaLoader = (AreaLoader) loader;
             if (areaLoader.isErrors()) {
                 findViewById(R.id.loadCaptionFrame).setVisibility(INVISIBLE);
@@ -66,7 +73,8 @@ public class SplashScreenActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            Intent mainIntent = new Intent(this, MainActivity.class);
+            Intent mainIntent = new Intent(this, AreaActivity.class);
+            mainIntent.putExtra(Area.class.getCanonicalName(), gson.toJson(area));
             this.startActivity(mainIntent);
             this.finish();
         }

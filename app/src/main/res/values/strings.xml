@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">cellClient</string>
-    <string name="load_caption_1">L</string>
-    <string name="load_caption_2">AD…</string>
-    <string name="splash_screen_description">splash screen</string>
-    <string name="connectCaption">Connect</string>
+    <string name="app_name" translatable="false">cellClient</string>
+    <string name="load_caption_1" translatable="false">L</string>
+    <string name="load_caption_2" translatable="false">AD…</string>
+    <string name="splash_screen_description" translatable="false">splash screen</string>
+    <string name="connectCaption" translatable="false">Connect</string>
+    <string name="crossCaption">Cross</string>
+    <string name="doCrossCaption">Cross</string>
+    <string name="crossMessageTemplate" translatable="false"><![CDATA[[%d.%d] —> [%d.%d]]]></string>
+    <string name="cellCaption">Cell</string>
+    <string name="regionCaption">Region</string>
+    <string name="secondShortCaption">sec</string>
+    <string name="infoItemTitle">Info</string>
+    <string name="process_number_format">Wait %d sec…</string>
 </resources>

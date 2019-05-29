@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-public class Address {
+public class Address implements Comparable<Address>{
   private UUID id;
   private Integer regionIndex;
   private Integer x;
@@ -69,5 +69,16 @@ public class Address {
         "." + x +
         "." + y +
         "}";
+  }
+
+  @Override
+  public int compareTo(Address address) {
+    int compareToX = address.getX();
+    int compareToY = address.getY();
+    int result = this.getX() - compareToX;
+    if (result == 0) {
+      result = this.getY() - compareToY;
+    }
+    return result;
   }
 }

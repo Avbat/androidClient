@@ -1,27 +1,14 @@
 package io.cell.androidclient.model;
 
-import android.graphics.Bitmap;
-
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.TreeMap;
 
-public class Area {
-    private static final Area ourInstance = new Area();
+public class Area{
 
     private Integer areaSize;
-    private Set<Cell> convas = new TreeSet<>();
-    private java.util.Map<String, Bitmap> imageCache = new HashMap<>();
+    private Map<Address, Cell> canvas = new TreeMap<>();
     private Address currentAddress;
-    private boolean loaded = false;
-
-    public static Area getInstance() {
-        return ourInstance;
-    }
-
-    private Area() {
-    }
+    private Boolean loaded = false;
 
     public Integer getAreaSize() {
         return areaSize;
@@ -32,21 +19,12 @@ public class Area {
         return this;
     }
 
-    public Set<Cell> getConvas() {
-        return convas;
+    public Map<Address, Cell> getCanvas() {
+        return canvas;
     }
 
-    public Area setConvas(Set<Cell> convas) {
-        this.convas = convas;
-        return this;
-    }
-
-    public Map<String, Bitmap> getImageCache() {
-        return imageCache;
-    }
-
-    public Area setImageCache(Map<String, Bitmap> imageCache) {
-        this.imageCache = imageCache;
+    public Area setCanvas(Map<Address, Cell> canvas) {
+        this.canvas = canvas;
         return this;
     }
 
@@ -59,12 +37,16 @@ public class Area {
         return this;
     }
 
-    public boolean isLoaded() {
+    public Boolean isLoaded() {
         return loaded;
     }
 
-    public Area setLoaded(boolean loaded) {
+    public Area setLoaded(Boolean loaded) {
         this.loaded = loaded;
         return this;
+    }
+
+    public Boolean getLoaded() {
+        return loaded;
     }
 }
