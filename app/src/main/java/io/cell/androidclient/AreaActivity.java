@@ -11,7 +11,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -44,8 +43,8 @@ import io.cell.androidclient.model.Area;
 import io.cell.androidclient.model.Cell;
 import io.cell.androidclient.utils.cache.ImageCache;
 import io.cell.androidclient.utils.cache.ImageCacheSingleton;
-import io.cell.androidclient.utils.tasks.AreaLoader;
-import io.cell.androidclient.utils.tasks.AreaLoader_;
+import io.cell.androidclient.utils.loaders.AreaLoader;
+import io.cell.androidclient.utils.loaders.AreaLoader_;
 import io.cell.androidclient.utils.typeAdapters.TreeMapTypeAdapterFactory;
 
 @EActivity(R.layout.area_activity)
@@ -134,10 +133,9 @@ public class AreaActivity extends AppCompatActivity implements
 
     public void onCrossItemSelected(MenuItem item) {
         CellView currentView = (CellView) item.getActionView();
-//        Integer totalTime = area.getCanvas()
-//                .get(currentView.getAddress())
-//                .getMovementRate();
-        int totalTime = 10; // Временно
+        Integer totalTime = area.getCanvas()
+                .get(currentView.getAddress())
+                .getMovementRate();
         crossIndicator = new ProgressDialog(this);
         prepareCrossIndicatorView(item);
         crossIndicator.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

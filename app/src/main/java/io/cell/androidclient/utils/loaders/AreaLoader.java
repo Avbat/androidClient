@@ -1,4 +1,4 @@
-package io.cell.androidclient.utils.tasks;
+package io.cell.androidclient.utils.loaders;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,9 +31,9 @@ import io.cell.androidclient.utils.cache.ImageCacheSingleton;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-import static io.cell.androidclient.utils.tasks.Errors.LOAD_CELL_REQUEST_FAILED;
-import static io.cell.androidclient.utils.tasks.Errors.LOAD_IMAGE_REQUEST_FAILED;
-import static io.cell.androidclient.utils.tasks.Errors.LOAD_SERVER_UNAVALABLE;
+import static io.cell.androidclient.utils.loaders.Errors.LOAD_CELL_REQUEST_FAILED;
+import static io.cell.androidclient.utils.loaders.Errors.LOAD_IMAGE_REQUEST_FAILED;
+import static io.cell.androidclient.utils.loaders.Errors.LOAD_SERVER_UNAVALABLE;
 
 @EBean
 public class AreaLoader extends AsyncTaskLoader<Area> {

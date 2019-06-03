@@ -1,4 +1,4 @@
-package io.cell.androidclient.utils.tasks;
+package io.cell.androidclient.utils.loaders;
 
 public enum Errors {
     LOAD_SERVER_UNAVALABLE("Сервер не доступен."),

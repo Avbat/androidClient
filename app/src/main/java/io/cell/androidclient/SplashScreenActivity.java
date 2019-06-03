@@ -22,8 +22,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import io.cell.androidclient.model.Area;
-import io.cell.androidclient.utils.tasks.AreaLoader;
-import io.cell.androidclient.utils.tasks.AreaLoader_;
+import io.cell.androidclient.utils.loaders.AreaLoader;
+import io.cell.androidclient.utils.loaders.AreaLoader_;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
