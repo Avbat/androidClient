@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 
 import com.google.gson.Gson;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +17,8 @@ import io.cell.androidclient.model.Address;
 import io.cell.androidclient.model.Area;
 import io.cell.androidclient.model.Cell;
 
-public class AreaBuilder {
+@EBean
+public class AreaBuilder{
     private Context context;
 
     private Integer areaSize;
