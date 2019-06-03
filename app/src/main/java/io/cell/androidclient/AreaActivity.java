@@ -41,6 +41,7 @@ import io.cell.androidclient.custom.views.CellView;
 import io.cell.androidclient.model.Address;
 import io.cell.androidclient.model.Area;
 import io.cell.androidclient.model.Cell;
+import io.cell.androidclient.utils.CrossRateEvaluate;
 import io.cell.androidclient.utils.cache.ImageCache;
 import io.cell.androidclient.utils.cache.ImageCacheSingleton;
 import io.cell.androidclient.utils.loaders.AreaLoader;
@@ -56,11 +57,13 @@ public class AreaActivity extends AppCompatActivity implements
     private final String TAG = getClass().getSimpleName();
 
     @Bean
+    CrossRateEvaluate rateEvaluate;
+    @Bean
     AreaLoader areaLoader;
-    @ViewById(R.id.mainTable)
-    TableLayout mainTable;
     @Bean(ImageCacheSingleton.class)
     ImageCache imageCache;
+    @ViewById(R.id.mainTable)
+    TableLayout mainTable;
 
     private Area area;
     private ProgressDialog crossIndicator;
@@ -133,9 +136,8 @@ public class AreaActivity extends AppCompatActivity implements
 
     public void onCrossItemSelected(MenuItem item) {
         CellView currentView = (CellView) item.getActionView();
-        Integer totalTime = area.getCanvas()
-                .get(currentView.getAddress())
-                .getMovementRate();
+        Cell currentCell = area.getCanvas().get(currentView.getAddress());
+        Integer totalTime = rateEvaluate.evaluateMovementRate(currentCell);
         crossIndicator = new ProgressDialog(this);
         prepareCrossIndicatorView(item);
         crossIndicator.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
