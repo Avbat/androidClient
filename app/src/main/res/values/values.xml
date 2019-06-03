@@ -2,6 +2,8 @@
     <string name="habitatUrl" translatable="false">https://habitat-cell-io.herokuapp.com</string>
     <string name="chatUrl" translatable="false">https://chat-cell-io.herokuapp.com</string>
     <integer name="areaSize">5</integer>
+    <integer name="movementRate">10</integer>
+    <integer name="flightRate">10</integer>
 
     <string name="defaultCellAddress" translatable="false">{"regionIndex":6,"x":18,"y": 18}</string>
 </resources>

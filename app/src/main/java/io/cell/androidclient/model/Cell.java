@@ -5,9 +5,9 @@ import java.util.UUID;
 public class Cell implements Comparable<Cell> {
   private UUID cellId;
   private Address address;
-  private Integer movementRate;
+  private Float movementRate;
   private Boolean movable;
-  private Integer flightRate;
+  private Float flightRate;
   private Boolean flyable;
   private String presentationImage;
   private String backgroundImage;
@@ -30,11 +30,11 @@ public class Cell implements Comparable<Cell> {
     return this;
   }
 
-  public Integer getMovementRate() {
+  public Float getMovementRate() {
     return movementRate;
   }
 
-  public Cell setMovementRate(Integer movementRate) {
+  public Cell setMovementRate(Float movementRate) {
     this.movementRate = movementRate;
     return this;
   }
@@ -48,11 +48,11 @@ public class Cell implements Comparable<Cell> {
     return this;
   }
 
-  public Integer getFlightRate() {
+  public Float getFlightRate() {
     return flightRate;
   }
 
-  public Cell setFlightRate(Integer flightRate) {
+  public Cell setFlightRate(Float flightRate) {
     this.flightRate = flightRate;
     return this;
   }
@@ -107,9 +107,7 @@ public class Cell implements Comparable<Cell> {
   public int hashCode() {
     int result = cellId.hashCode();
     result = 31 * result + address.hashCode();
-    result = 31 * result + (movementRate != null ? movementRate.hashCode() : 0);
     result = 31 * result + (movable != null ? movable.hashCode() : 0);
-    result = 31 * result + (flightRate != null ? flightRate.hashCode() : 0);
     result = 31 * result + (flyable != null ? flyable.hashCode() : 0);
     result = 31 * result + (presentationImage != null ? presentationImage.hashCode() : 0);
     result = 31 * result + (backgroundImage != null ? backgroundImage.hashCode() : 0);
