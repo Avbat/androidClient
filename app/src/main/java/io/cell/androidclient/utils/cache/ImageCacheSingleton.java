@@ -2,18 +2,13 @@ package io.cell.androidclient.utils.cache;
 
 import android.graphics.Bitmap;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@EBean(scope = EBean.Scope.Singleton)
 public class ImageCacheSingleton implements ImageCache {
-    private static final ImageCacheSingleton ourInstance = new ImageCacheSingleton();
-
-    public static ImageCacheSingleton getInstance() {
-        return ourInstance;
-    }
-
-    private ImageCacheSingleton() {
-    }
 
     private Map<String, Bitmap> cache = new HashMap<>();
 

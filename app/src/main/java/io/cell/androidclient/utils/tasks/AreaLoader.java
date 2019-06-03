@@ -3,9 +3,14 @@ package io.cell.androidclient.utils.tasks;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,36 +35,35 @@ import static io.cell.androidclient.utils.tasks.Errors.LOAD_CELL_REQUEST_FAILED;
 import static io.cell.androidclient.utils.tasks.Errors.LOAD_IMAGE_REQUEST_FAILED;
 import static io.cell.androidclient.utils.tasks.Errors.LOAD_SERVER_UNAVALABLE;
 
+@EBean
 public class AreaLoader extends AsyncTaskLoader<Area> {
 
+    @Bean
+    AreaBuilder builder;
+    @Bean
+    ApiFactory apiFactory;
+    @Bean(ImageCacheSingleton.class)
+    ImageCache imageCache;
+
     private final String TAG = getClass().getSimpleName();
-    private AreaBuilder builder;
     private HabitatApi habitatApi;
     private Area area;
-
-    public Address getTargetAddress() {
-        return targetAddress;
-    }
-
-    public AreaLoader setTargetAddress(Address targetAddress) {
-        this.targetAddress = targetAddress;
-        return this;
-    }
-
     private Address targetAddress;
-    private ImageCache imageCache;
     private boolean errors;
     private String errorMessage;
 
-    public AreaLoader(Context context, @Nullable Address targetAddress) {
+
+    public AreaLoader(@NonNull Context context) {
         super(context);
         this.area = new Area();
-        imageCache = ImageCacheSingleton.getInstance();
-        builder = new AreaBuilder(context);
-        this.targetAddress = targetAddress == null ? builder.getDefaultAddress() : targetAddress;
-        habitatApi = new ApiFactory(context).getHabitatApi();
         errors = false;
         errorMessage = "";
+    }
+
+    @AfterInject
+    void init() {
+        this.habitatApi = apiFactory.getHabitatApi();
+        this.targetAddress = targetAddress == null ? builder.getDefaultAddress() : targetAddress;
     }
 
     @Nullable
@@ -73,6 +77,7 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
         Set<Cell> missingImageCells = getMissingImageCells(cells);
         imageCache.getCache().putAll(loadImages(missingImageCells));
         area = builder
+                .setCurrentAddress(targetAddress)
                 .setCanvas(cells)
                 .setLoaded(!errors)
                 .build();
@@ -82,10 +87,9 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
     private Set<Cell> getMissingImageCells(Set<Cell> cells) {
         Set<Cell> missingImageCells = new HashSet<>();
         for (Cell cell : cells) {
-            if (imageCache.getCache().containsKey(cell.getAddress())) {
-                continue;
+            if (!imageCache.getCache().containsKey(cell.getAddress())) {
+                missingImageCells.add(cell);
             }
-            missingImageCells.add(cell);
         }
         return missingImageCells;
     }
@@ -186,6 +190,15 @@ public class AreaLoader extends AsyncTaskLoader<Area> {
 
     public AreaLoader setArea(Area area) {
         this.area = area;
+        return this;
+    }
+
+    public Address getTargetAddress() {
+        return targetAddress;
+    }
+
+    public AreaLoader setTargetAddress(Address targetAddress) {
+        this.targetAddress = targetAddress;
         return this;
     }
 }

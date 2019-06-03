@@ -2,6 +2,8 @@ package io.cell.androidclient.api;
 
 import android.content.Context;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.concurrent.TimeUnit;
 
 import io.cell.androidclient.R;
@@ -13,11 +15,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Фабрика для формирования Rest API классов на основании {@link Retrofit}
  */
+@EBean
 public class ApiFactory {
 
     private Context context;
 
-    public ApiFactory(Context context) {
+    ApiFactory(Context context) {
         this.context = context;
     }
 

@@ -6,6 +6,8 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
+import org.androidannotations.annotations.EBean;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.TreeMap;
 /**
  * Адаптер для десериализаии {@link TreeMap} по средствам {@link Gson}
  */
+@EBean
 public class TreeMapTypeAdapterFactory implements TypeAdapterFactory {
 
 
@@ -43,7 +46,7 @@ public class TreeMapTypeAdapterFactory implements TypeAdapterFactory {
         return new InstanceCreator<Map<K, V>>() {
             @Override
             public Map<K, V> createInstance(Type type) {
-                return new TreeMap<K, V>();
+                return new TreeMap<>();
             }
         };
     }

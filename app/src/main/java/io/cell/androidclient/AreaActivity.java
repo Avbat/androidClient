@@ -11,6 +11,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -26,6 +27,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -37,8 +45,10 @@ import io.cell.androidclient.model.Cell;
 import io.cell.androidclient.utils.cache.ImageCache;
 import io.cell.androidclient.utils.cache.ImageCacheSingleton;
 import io.cell.androidclient.utils.tasks.AreaLoader;
+import io.cell.androidclient.utils.tasks.AreaLoader_;
 import io.cell.androidclient.utils.typeAdapters.TreeMapTypeAdapterFactory;
 
+@EActivity(R.layout.area_activity)
 public class AreaActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Area> {
 
@@ -46,28 +56,28 @@ public class AreaActivity extends AppCompatActivity implements
 
     private final String TAG = getClass().getSimpleName();
 
+    @Bean
+    AreaLoader areaLoader;
+    @ViewById(R.id.mainTable)
+    TableLayout mainTable;
+    @Bean(ImageCacheSingleton.class)
+    ImageCache imageCache;
+
     private Area area;
-    private ImageCache imageCache;
     private ProgressDialog crossIndicator;
-    private AreaLoader areaLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
-        setContentView(R.layout.area_activity);
-        registerContextMenu();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-        if (area.isLoaded()) {
-            fillActivityArea();
-        }
-        areaLoader = (AreaLoader) LoaderManager.getInstance(this).initLoader(AREA_LOADER_ID, new Bundle(), this);
     }
 
-    private void init() {
+    @AfterViews
+    public void init() {
         Gson gson = new GsonBuilder()
                 .enableComplexMapKeySerialization()
                 .registerTypeAdapterFactory(new TreeMapTypeAdapterFactory())
@@ -76,7 +86,11 @@ public class AreaActivity extends AppCompatActivity implements
 
         String areaJson = getIntent().getExtras().getString(Area.class.getCanonicalName());
         area = gson.fromJson(areaJson, Area.class);
-        imageCache = ImageCacheSingleton.getInstance();
+        registerContextMenu();
+        if (area.isLoaded()) {
+            fillActivityArea();
+        }
+        areaLoader = (AreaLoader) LoaderManager.getInstance(this).initLoader(AREA_LOADER_ID, new Bundle(), this);
     }
 
     @Override
@@ -120,9 +134,10 @@ public class AreaActivity extends AppCompatActivity implements
 
     public void onCrossItemSelected(MenuItem item) {
         CellView currentView = (CellView) item.getActionView();
-        Integer totalTime = area.getCanvas()
-                .get(currentView.getAddress())
-                .getMovementRate();
+//        Integer totalTime = area.getCanvas()
+//                .get(currentView.getAddress())
+//                .getMovementRate();
+        int totalTime = 10; // Временно
         crossIndicator = new ProgressDialog(this);
         prepareCrossIndicatorView(item);
         crossIndicator.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -144,8 +159,8 @@ public class AreaActivity extends AppCompatActivity implements
                 currentView.getAddress().getX(), currentView.getAddress().getY());
         String title = getResources().getString(R.string.crossCaption);
         View customTitle = getLayoutInflater().inflate(R.layout.cross_progress_bar_title, null);
-        ((TextView)customTitle.findViewById(R.id.crossProgressLeftTitle)).setText(title);
-        ((TextView)customTitle.findViewById(R.id.crossProgressRightTitle)).setText(crossMessage);
+        ((TextView) customTitle.findViewById(R.id.crossProgressLeftTitle)).setText(title);
+        ((TextView) customTitle.findViewById(R.id.crossProgressRightTitle)).setText(crossMessage);
         crossIndicator.setCustomTitle(customTitle);
     }
 
@@ -155,34 +170,30 @@ public class AreaActivity extends AppCompatActivity implements
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void startCrossProgress(final Integer time) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int counter = time;
+    @Background
+    public void startCrossProgress(final Integer time) {
+        int counter = time;
+        crossIndicator.setProgress(counter);
+        while (counter > 0) {
+            try {
+                Thread.sleep(1000);
+                counter--;
                 crossIndicator.setProgress(counter);
-                while (counter > 0) {
-                    try {
-                        Thread.sleep(1000);
-                        counter--;
-                        crossIndicator.setProgress(counter);
-                    } catch (InterruptedException e) {
-                        Log.e(TAG, e.getMessage(), e);
-                    }
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!area.getCurrentAddress().equals(areaLoader.getArea().getCurrentAddress())
-                                && areaLoader.getArea().isLoaded()) {
-                            area = areaLoader.getArea();
-                            fillActivityArea();
-                        }
-                    }
-                });
-                crossIndicator.dismiss();
+            } catch (InterruptedException e) {
+                Log.e(TAG, e.getMessage(), e);
             }
-        }).start();
+        }
+        updateActivityAreaStage();
+    }
+
+    @UiThread
+    public void updateActivityAreaStage() {
+        if (!area.getCurrentAddress().equals(areaLoader.getArea().getCurrentAddress())
+                && areaLoader.getArea().isLoaded()) {
+            area = areaLoader.getArea();
+            fillActivityArea();
+        }
+        crossIndicator.dismiss();
     }
 
     private void startCross(Address targetAddress) {
@@ -195,7 +206,6 @@ public class AreaActivity extends AppCompatActivity implements
     }
 
     private void registerContextMenu() {
-        TableLayout mainTable = findViewById(R.id.mainTable);
         for (int i = 0; i < mainTable.getChildCount(); i++) {
             View rowView = mainTable.getChildAt(i);
             if (rowView instanceof TableRow) {
@@ -251,7 +261,7 @@ public class AreaActivity extends AppCompatActivity implements
         }
         Integer maxX = area.getCurrentAddress().getX() + (area.getAreaSize() / 2);
         Integer minX = area.getCurrentAddress().getX() - (area.getAreaSize() / 2);
-        TreeSet<Cell> cells = new TreeSet<Cell>(area.getCanvas().values());
+        TreeSet<Cell> cells = new TreeSet<>(area.getCanvas().values());
         Cell firstCell = cells.first();
         Integer offsetX = firstCell.getAddress().getX();
         Integer offsetY = firstCell.getAddress().getY() - 1;
@@ -315,7 +325,7 @@ public class AreaActivity extends AppCompatActivity implements
         if (id == AREA_LOADER_ID && this.areaLoader != null) {
             return this.areaLoader;
         }
-        return new AreaLoader(this, null);
+        return AreaLoader_.getInstance_(this);
     }
 
     @Override
@@ -327,7 +337,6 @@ public class AreaActivity extends AppCompatActivity implements
                         areaLoader.getErrorMessage(),
                         Toast.LENGTH_SHORT).show();
                 crossIndicator.dismiss();
-                return;
             }
         }
     }
